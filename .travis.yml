@@ -2,8 +2,12 @@ env:
   global:
     - secure: Pxqx8rgBOcxrCbIUbONh9V0kGIYnYS03nUXZsTVuN5EmSEWj/wK0Xj9o0TMn6ICeDc97FJODM4U8E9JK5simysIbVcKb8AOp1E7Tm6vgt4mcmtp/dtjBOiQ0a2Cog6rFeCY0Dvhap3rywXUDqiqNuQ5hXEaezcqVMYhBUjxES0k=
 install:
-  - curl https://static.rust-lang.org/rustup.sh | sudo sh -
+  - echo x
+  #- curl https://static.rust-lang.org/rustup.sh | sudo sh -
 script:
-  - cargo build --verbose && cargo test --verbose && cargo doc --verbose && mv target/doc doc
+  - echo y
+  #- cargo build --verbose && cargo test --verbose && cargo doc --verbose && mv target/doc doc
 after_script:
-  - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh
+  - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN > file.txt
+  - wc file.txt
+  - python -c 'print(open("file.txt").read())'
