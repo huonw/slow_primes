@@ -2,6 +2,7 @@
 // inspired by http://primesieve.org/segmented_sieve.html
 
 use std::collections::{Bitv};
+use std::num::Float;
 use std::{cmp};
 
 use Primes;

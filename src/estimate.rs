@@ -1,3 +1,4 @@
+use std::num::Float;
 use tables;
 
 /// Returns estimated bounds for π(*n*), the number of primes less
