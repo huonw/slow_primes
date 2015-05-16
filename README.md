@@ -1,3 +1,5 @@
+Deprecated in favour of [primal](http://github.com/huonw/primal).
+
 # slow_primes
 
 [![Build Status](https://travis-ci.org/huonw/slow_primes.png)](https://travis-ci.org/huonw/slow_primes) [![Coverage Status](https://coveralls.io/repos/huonw/slow_primes/badge.svg?branch=update)](https://coveralls.io/r/huonw/slow_primes?branch=update)

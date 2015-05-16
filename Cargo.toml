@@ -11,6 +11,8 @@ license = "MIT/Apache-2.0"
 keywords = ["math", "mathematics", "primes", "number-theory"]
 readme = "README.md"
 description = """
+Deprecated in favour of `primal`.
+
 A library to generate, identify and handle prime numbers and related
 properties.  This library includes slow enumeration of primes up to a
 bound, slow factorisation of arbitrary numbers, fast primality tests
