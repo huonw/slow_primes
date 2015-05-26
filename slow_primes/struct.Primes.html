@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Primes` struct in crate `slow_primes`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Primes">
+
+    <title>slow_primes::Primes - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>slow_primes</a></p><script>window.sidebarCurrent = {name: 'Primes', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>slow_primes</a>::<wbr><a class='struct' href=''>Primes</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-5372' href='../src/slow_primes/sieve.rs.html#10-16'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Primes {
+    // some fields omitted
+}</pre><div class='docblock'><p>Stores information about primes up to some limit.</p>
+
+<p>This uses at least <code>limit / 16 + O(1)</code> bytes of storage.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../slow_primes/struct.Primes.html' title='slow_primes::Primes'>Primes</a></code></h3><div class='impl-items'><h4 id='method.sieve' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.sieve' class='fnname'>sieve</a>(limit: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../slow_primes/struct.Primes.html' title='slow_primes::Primes'>Primes</a></code></h4>
+<div class='docblock'><p>Construct a <code>Primes</code> via a sieve up to at least <code>limit</code>.</p>
+
+<p>This stores all primes less than <code>limit</code> (and possibly some
+more), allowing for very efficient iteration and primality
+testing below this, and guarantees that all numbers up to
+<code>limit^2</code> can be factorised.</p>
+</div><h4 id='method.upper_bound' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.upper_bound' class='fnname'>upper_bound</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+<div class='docblock'><p>The largest number stored.</p>
+</div><h4 id='method.is_prime' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_prime' class='fnname'>is_prime</a>(&amp;self, n: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Check if <code>n</code> is prime, possibly failing if <code>n</code> is larger than
+the upper bound of this Primes instance.</p>
+</div><h4 id='method.primes' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.primes' class='fnname'>primes</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../slow_primes/struct.PrimeIterator.html' title='slow_primes::PrimeIterator'>PrimeIterator</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Iterator over the primes stored in this map.</p>
+</div><h4 id='method.factor' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.factor' class='fnname'>factor</a>(&amp;self, n: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='type' href='../slow_primes/type.Factors.html' title='slow_primes::Factors'>Factors</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, <a class='type' href='../slow_primes/type.Factors.html' title='slow_primes::Factors'>Factors</a>)</a>&gt;</code></h4>
+<div class='docblock'><p>Factorise <code>n</code> into (prime, exponent) pairs.</p>
+
+<p>Returns <code>Err((leftover, partial factorisation))</code> if <code>n</code> cannot
+be fully factored, or if <code>n</code> is zero (<code>leftover == 0</code>). A
+number can not be completely factored if and only if the prime
+factors of <code>n</code> are too large for this sieve, that is, if there
+is</p>
+
+<ul>
+<li>a prime factor larger than <code>U^2</code>, or</li>
+<li>more than one prime factor between <code>U</code> and <code>U^2</code></li>
+</ul>
+
+<p>where <code>U</code> is the upper bound of the primes stored in this
+sieve.</p>
+
+<p>Notably, any number between <code>U</code> and <code>U^2</code> can always be fully
+factored, since these numbers are guaranteed to only have zero
+or one prime factors larger than <code>U</code>.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../slow_primes/struct.Primes.html' title='slow_primes::Primes'>Primes</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='http://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='http://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "slow_primes";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["StreamingSieve","A segmented sieve that yields only a small run of primes at a time."]]});
